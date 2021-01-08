@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
 
 
 function Column(props: any) {
@@ -13,15 +14,17 @@ function Column(props: any) {
     return (
         <Container>
             {props.cards.map((card: { id: string | number | null | undefined; title: React.ReactNode; }) => {
-        return <div key={card.id}>
-            {card.title}
-      <select  onChange={columnSelect}>
-        <option value="">Move To</option>
-        {taskList.map(column => <option key={column}>{column}</option>)}
-      </select>
-      <Button onClick={erase}>X</Button>
-            </div>
-    })}
+            return <Card key={card.id}>
+                    <Card.Title>{card.title}</Card.Title>
+                            <select  onChange={columnSelect}>
+                                <option value="">Move To</option>
+                                {taskList.map(column => <option key={column}>{column}</option>)}
+                            </select>
+                        <Container>
+                            <Button size="sm" variant="outline-danger" onClick={erase}>Delete Card</Button>
+                        </Container>
+                    </Card>
+            })}
         <Button onClick={add}>+</Button>
         </Container>
     );
