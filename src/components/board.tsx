@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Column from './column'
 import axios from 'axios'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const cards = [
     {
@@ -53,16 +56,26 @@ function Board() {
     })
 
     return (
-        <div>
-            <h2>Backlog</h2>
-            <Column column={"Backlog"} cards={backlogData}/>
-            <h2>ToDo</h2>
-            <Column column={"ToDo"} cards={toDoData}/>
-            <h2>Doing</h2>
-            <Column column={"Doing"} cards={doingData}/>
-            <h2>Done</h2>
-            <Column column={"Done"} cards={doneData}/>
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                <h2>Backlog</h2>
+                <Column column={"Backlog"} cards={backlogData}/>
+                </Col>
+                <Col>
+                <h2>ToDo</h2>
+                <Column column={"ToDo"} cards={toDoData}/>
+                </Col>
+                <Col>
+                <h2>Doing</h2>
+                <Column column={"Doing"} cards={doingData}/>
+                </Col>
+                <Col>
+                <h2>Done</h2>
+                <Column column={"Done"} cards={doneData}/>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
