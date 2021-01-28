@@ -6,8 +6,9 @@ import Card from 'react-bootstrap/Card'
 import PropTypes from 'prop-types'
 
 type ColumnCard = {
-    id: number;
+    _id: number;
     title: string;
+    boardId: number
 }
 
 type Props = {
@@ -18,16 +19,18 @@ type Props = {
 function Column(props: Props) {
     const {column, cards} = props;
     // const taskList = ['Backlog', 'ToDo', 'Doing', 'Done']
-    function erase(id: string | number | null | undefined) { console.log(`delete the ${id} card`); }
+     const erase = (id: string | number | null | undefined, boardId: number) =>  { 
+         axios.delete(`http://localhost:3001/api/board/${boardId}/${id}`, )
+      }
 
     return (
         <Container>
-            {cards.map((card: { id: string | number | null | undefined; title: React.ReactNode; }) => {
-            return <Card key={card.id}>
+            {cards.map((card: { _id: string | number | null | undefined; title: React.ReactNode; boardId: number }) => {
+            return <Card key={card._id}>
                     <Card.Title>{card.title}</Card.Title>
                         <Container>
                             <Button size="sm" variant="outline-danger" onClick={(event: React.MouseEvent<HTMLElement>) => {
-                                erase(card.id)
+                                erase(card._id, card.boardId)
                             }}>Delete Card</Button>
                         </Container>
                     </Card>
