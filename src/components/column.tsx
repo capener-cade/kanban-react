@@ -33,7 +33,7 @@ function Column(props: Props) {
                         <Container>
                             <Button size="sm" variant="outline-danger" onClick={(event: React.MouseEvent<HTMLElement>) => {
                                 erase(card._id, card.boardId)
-                            }}>Delete Card</Button>
+                            }}>Delete</Button>
                         </Container>
                     </Card>
             })}

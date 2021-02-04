@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ModalForm from './modalForm'
 
 
 
@@ -65,19 +66,22 @@ useEffect( ()=>{
                 <Col>
                 <h2>Backlog</h2>
                 <Column column={"Backlog"} cards={backlogColumnData} refreshBoard={refreshBoard}/>
-                <Button onClick={addCard}>Create A Card</Button>
+                <ModalForm column={"Backlog"} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>ToDo</h2>
                 <Column column={"ToDo"} cards={toDoColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={"ToDo"} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>Doing</h2>
                 <Column column={"Doing"} cards={doingColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={"Doing"} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>Done</h2>
                 <Column column={"Done"} cards={doneColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={"Done"} refreshBoard={refreshBoard}/>
                 </Col>
             </Row>
         </Container>
