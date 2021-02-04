@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "eslint:recommended", 
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:react/recommended",
+    "prettier/react",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "react", "jest", "react-hooks"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
