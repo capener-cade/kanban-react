@@ -48,28 +48,33 @@ useEffect( ()=>{
     fetchData()
 }, [])
 
+const backlog = "Backlog"
+const toDo = "ToDo"
+const doing = "Doing"
+const done = "Done"
+
     return (
         <Container>
             <Row>
                 <Col>
                 <h2>Backlog</h2>
-                <Column column={"Backlog"} cards={backlogColumnData} refreshBoard={refreshBoard}/>
-                <ModalForm column={"Backlog"} refreshBoard={refreshBoard}/>
+                <Column column={backlog} cards={backlogColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={backlog} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>ToDo</h2>
-                <Column column={"ToDo"} cards={toDoColumnData} refreshBoard={refreshBoard}/>
-                <ModalForm column={"ToDo"} refreshBoard={refreshBoard}/>
+                <Column column={toDo} cards={toDoColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={toDo} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>Doing</h2>
-                <Column column={"Doing"} cards={doingColumnData} refreshBoard={refreshBoard}/>
-                <ModalForm column={"Doing"} refreshBoard={refreshBoard}/>
+                <Column column={doing} cards={doingColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={doing} refreshBoard={refreshBoard}/>
                 </Col>
                 <Col>
                 <h2>Done</h2>
-                <Column column={"Done"} cards={doneColumnData} refreshBoard={refreshBoard}/>
-                <ModalForm column={"Done"} refreshBoard={refreshBoard}/>
+                <Column column={done} cards={doneColumnData} refreshBoard={refreshBoard}/>
+                <ModalForm column={done} refreshBoard={refreshBoard}/>
                 </Col>
             </Row>
         </Container>
