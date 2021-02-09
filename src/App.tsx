@@ -7,11 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button'
 
 function App() {
-
-  const fetch = () => {
-    axios.get('http://localhost:3001/api/ping')
-      .then(response => console.log(response))
-  }
   return (
     <div className="App">
       <Board/>
