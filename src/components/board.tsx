@@ -16,9 +16,7 @@ type ColumnCard = {
 }
 
 function Board() {
-//TODO: add a "Create Card" button here.  All it needs to do is create a new card for the backlog column and add to the array and set the state
 //TODO: remve the move to drop down for now
-//TODO: get all the card here.  push them into a state for each column, pass the specific array down to the column
 const [cardData, setCardData] = useState([])
 const [backlogColumnData, setBacklogColumnData] = useState([])
 const [toDoColumnData, setToDoColumnData] = useState([])
