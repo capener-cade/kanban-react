@@ -43,16 +43,6 @@ const refreshBoard = async(boardId: number): Promise<void> => {
     setCardsState(cards);
 }
 
-const addCard = async () => {
-    const newCard = {
-            "boardId":1,
-            "column": "Backlog",
-            "title": "Add a New Card"
-    }
-    await axios.post('http://localhost:3001/api/board/1/cards', newCard)
-    await refreshBoard(1);
-}
-
 useEffect( ()=>{
     const fetchData = async () => {
         await refreshBoard(1);
