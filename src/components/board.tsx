@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import ModalForm from './modalForm'
+import { element } from 'prop-types';
 
 
 
@@ -53,27 +54,42 @@ const toDo = "ToDo"
 const doing = "Doing"
 const done = "Done"
 
+const onDragOver = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation();
+}
+const onDragStart = (e: any, id: number, columnStartName : string) => {
+    
+}
+
+const onDrop = (e: any, columnDropName : string) => {
+    console.log(`was dropped on the ${columnDropName}`)
+} 
+
+
+
+
     return (
         <Container>
             <Row>
-                <Col>
+                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, backlog)}>
                 <h2>Backlog</h2>
-                <Column column={backlog} cards={backlogColumnData} refreshBoard={refreshBoard}/>
+                <Column column={backlog} cards={backlogColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={backlog} refreshBoard={refreshBoard}/>
                 </Col>
-                <Col>
+                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, toDo)}>
                 <h2>ToDo</h2>
-                <Column column={toDo} cards={toDoColumnData} refreshBoard={refreshBoard}/>
+                <Column column={toDo} cards={toDoColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={toDo} refreshBoard={refreshBoard}/>
                 </Col>
-                <Col>
+                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, doing)}>
                 <h2>Doing</h2>
-                <Column column={doing} cards={doingColumnData} refreshBoard={refreshBoard}/>
+                <Column column={doing} cards={doingColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={doing} refreshBoard={refreshBoard}/>
                 </Col>
-                <Col>
+                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, done)}>
                 <h2>Done</h2>
-                <Column column={done} cards={doneColumnData} refreshBoard={refreshBoard}/>
+                <Column column={done} cards={doneColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={done} refreshBoard={refreshBoard}/>
                 </Col>
             </Row>

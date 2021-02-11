@@ -8,9 +8,10 @@ import PropTypes from 'prop-types'
 type ColumnCard = {
     _id: number;
     title: string;
-    boardId: number
+    boardId: number;
 }
 
+//I know I shouldn't set the type to any but what do I set it as?  
 interface Props {
     column: string;
     cards: ColumnCard[];
@@ -28,7 +29,7 @@ function Column(props: Props) {
     return (
         <Container>
             {cards.map((card: { _id: string | number | null | undefined; title: React.ReactNode; boardId: number }) => {
-            return <Card key={card._id}>
+            return <Card key={card._id} draggable> 
                     <Card.Title>{card.title}</Card.Title>
                         <Container>
                             <Button size="sm" variant="outline-danger" onClick={(event: React.MouseEvent<HTMLElement>) => {
