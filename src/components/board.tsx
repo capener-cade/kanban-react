@@ -58,16 +58,11 @@ const onDragOver = (e: any) => {
     e.preventDefault()
     e.stopPropagation();
 }
-const onDragStart = (e: any, id: number, columnStartName : string) => {
-    
-}
 
-const onDrop = (e: any, columnDropName : string) => {
-    console.log(`was dropped on the ${columnDropName}`)
+const onDrop = async (e: any, columnDropName : string) => {
+    let cardId = e.dataTransfer.getData("cardId")
+    alert(`was taken from the ${cardId} dropped on the ${columnDropName}`)
 } 
-
-
-
 
     return (
         <Container>

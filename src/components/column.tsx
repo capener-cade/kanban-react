@@ -26,10 +26,15 @@ function Column(props: Props) {
          await props.refreshBoard(boardId);
       }
 
+      const onDragStart = (e: { dataTransfer: { setData: (arg0: string, arg1: any) => void; }; }, cardTitle: React.ReactNode, cardId: string | number) => {
+    	console.log('dragstart on div: ', cardTitle);
+    	e.dataTransfer.setData("cardId", cardId);
+	}
+
     return (
         <Container>
-            {cards.map((card: { _id: string | number | null | undefined; title: React.ReactNode; boardId: number }) => {
-            return <Card key={card._id} draggable> 
+            {cards.map((card: { _id: string | number ; title: React.ReactNode; boardId: number }) => {
+            return <Card key={card._id} draggable onDragStart={(e:any) => {onDragStart(e, card.title, card._id)}}> 
                     <Card.Title>{card.title}</Card.Title>
                         <Container>
                             <Button size="sm" variant="outline-danger" onClick={(event: React.MouseEvent<HTMLElement>) => {
