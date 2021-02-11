@@ -62,6 +62,7 @@ const onDragOver = (e: any) => {
 const onDrop = async (e: any, columnDropName : string) => {
     let cardId = e.dataTransfer.getData("cardId")
     alert(`was taken from the ${cardId} dropped on the ${columnDropName}`)
+    axios.put(`http://localhost:3001/api/board/1/${cardId}`, {column: columnDropName})
 } 
 
     return (
