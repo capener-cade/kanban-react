@@ -1,12 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Column from './column'
 import axios from 'axios'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
 import ModalForm from './modalForm'
-import { element } from 'prop-types';
+import { Container, Grid, Paper } from '@material-ui/core';
 
 
 
@@ -17,8 +13,6 @@ type ColumnCard = {
 }
 
 function Board() {
-//TODO: remve the move to drop down for now
-const [cardData, setCardData] = useState([])
 const [backlogColumnData, setBacklogColumnData] = useState([])
 const [toDoColumnData, setToDoColumnData] = useState([])
 const [doingColumnData, setDoingColumnData] = useState([])
@@ -29,8 +23,8 @@ const getCards = async (boardId: number): Promise<any> => {
     return response.data
 }
 
+
 const setCardsState = (cards: any): void => {
-    setCardData(cards)
     setBacklogColumnData(cards.filter((card: ColumnCard) => card.column.toUpperCase() === "BACKLOG"));
     setToDoColumnData(cards.filter((card: ColumnCard) => card.column.toUpperCase() === "TODO"));
     setDoingColumnData(cards.filter((card: ColumnCard) => card.column.toUpperCase() === "DOING"));
@@ -64,31 +58,32 @@ const onDrop = async (e: any, columnDropName : string) => {
     await axios.put(`http://localhost:3001/api/board/1/${cardId}`, {column: columnDropName})
     await refreshBoard(1)
 } 
-
     return (
         <Container>
-            <Row>
-                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, backlog)}>
+        <Paper>
+        <Grid container spacing={3}>
+            <Grid item xs={3} onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, backlog)}>
                 <h2>Backlog</h2>
                 <Column column={backlog} cards={backlogColumnData} refreshBoard={refreshBoard} />
-                <ModalForm column={backlog} refreshBoard={refreshBoard}/>
-                </Col>
-                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, toDo)}>
+                <ModalForm column={backlog} refreshBoard={refreshBoard}/>        
+            </Grid>
+            <Grid item xs={3} onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, toDo)}>
                 <h2>ToDo</h2>
                 <Column column={toDo} cards={toDoColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={toDo} refreshBoard={refreshBoard}/>
-                </Col>
-                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, doing)}>
+            </Grid>
+            <Grid item xs={3} onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, doing)}>
                 <h2>Doing</h2>
                 <Column column={doing} cards={doingColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={doing} refreshBoard={refreshBoard}/>
-                </Col>
-                <Col onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, done)}>
+            </Grid>
+            <Grid item xs={3} onDragOver={(e: any)=>onDragOver(e)} onDrop={(e: any) => onDrop(e, done)}>
                 <h2>Done</h2>
                 <Column column={done} cards={doneColumnData} refreshBoard={refreshBoard} />
                 <ModalForm column={done} refreshBoard={refreshBoard}/>
-                </Col>
-            </Row>
+            </Grid>
+        </Grid>
+        </Paper>
         </Container>
     );
 }

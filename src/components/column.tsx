@@ -1,9 +1,5 @@
-import React, {useEffect, useState}from 'react';
 import axios from 'axios'
-import Container from 'react-bootstrap/Container'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import PropTypes from 'prop-types'
+import { Container, Card, CardHeader, Button, Typography } from '@material-ui/core';
 
 type ColumnCard = {
     _id: number;
@@ -11,7 +7,7 @@ type ColumnCard = {
     boardId: number;
 }
 
-//I know I shouldn't set the type to any but what do I set it as?  
+//I know I shouldn't set the type to any but what do I set it as? 
 interface Props {
     column: string;
     cards: ColumnCard[];
@@ -34,13 +30,11 @@ function Column(props: Props) {
     return (
         <Container>
             {cards.map((card: { _id: string | number ; title: React.ReactNode; boardId: number }) => {
-            return <Card key={card._id} draggable onDragStart={(e:any) => {onDragStart(e, card.title, card._id)}}> 
-                    <Card.Title>{card.title}</Card.Title>
-                        <Container>
-                            <Button size="sm" variant="outline-danger" onClick={(event: React.MouseEvent<HTMLElement>) => {
+            return <Card style={{margin:"15px", padding:"10px 0"}} variant="outlined" key={card._id} draggable onDragStart={(e:any) => {onDragStart(e, card.title, card._id)}}> 
+                    <Typography style={{textAlign:"left", margin:"0 10px"}}>{card.title}</Typography>
+                            <Button color="secondary" size="small" onClick={(event: React.MouseEvent<HTMLElement>) => {
                                 erase(card._id, card.boardId)
                             }}>Delete</Button>
-                        </Container>
                     </Card>
             })}
         </Container>
