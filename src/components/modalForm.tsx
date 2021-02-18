@@ -4,6 +4,7 @@ import {  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, 
 
 
 
+
 function ModalForm(props: any) {
     const [show, setShow] = useState(false);
     const [titleValue, setTitleValue] = useState('')
@@ -27,10 +28,10 @@ function ModalForm(props: any) {
       <ButtonGroup color="secondary" size="small" onClick={handleShow}>
         <Button>Add A Card</Button>
       </ButtonGroup>
-
+      
       <Dialog open={show} onClose={handleClose}> 
           <DialogTitle>Add A Card</DialogTitle>
-        <DialogActions>
+        <DialogActions style={{padding:"15px"}}>
         <FormGroup>
                <TextField autoFocus margin="dense" id="title" type="title" label="Title" value={titleValue}  onChange={e => setTitleValue(e.target.value)}/>
              </FormGroup>
@@ -44,6 +45,7 @@ function ModalForm(props: any) {
           </Button>
         </DialogActions>
       </Dialog>
+      
     </>
     );
 }

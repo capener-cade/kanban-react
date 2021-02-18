@@ -31,7 +31,7 @@ function Column(props: Props) {
         <Container>
             {cards.map((card: { _id: string | number ; title: React.ReactNode; boardId: number }) => {
             return <Card style={{margin:"15px", padding:"10px 0"}} variant="outlined" key={card._id} draggable onDragStart={(e:any) => {onDragStart(e, card.title, card._id)}}> 
-                    <Typography style={{textAlign:"left", margin:"0 10px"}}>{card.title}</Typography>
+                    <Typography style={{ margin:"0 10px"}}>{card.title}</Typography>
                             <Button color="secondary" size="small" onClick={(event: React.MouseEvent<HTMLElement>) => {
                                 erase(card._id, card.boardId)
                             }}>Delete</Button>
