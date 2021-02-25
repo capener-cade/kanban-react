@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import axios from 'axios'
+import {  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from '@material-ui/core';
+
+
 
 
 function ModalForm(props: any) {
@@ -25,29 +25,27 @@ function ModalForm(props: any) {
 
     return (
         <>
-      <Button variant="primary" size="sm" onClick={handleShow}>
-       Add A Card
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add A Card</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <Form.Group controlId="formBasicPassword">
-               <Form.Label>Title</Form.Label>
-               <Form.Control type="title" placeholder="Title" value={titleValue}  onChange={e => setTitleValue(e.target.value)}/>
-             </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+      <ButtonGroup color="secondary" size="small" onClick={handleShow}>
+        <Button>Add A Card</Button>
+      </ButtonGroup>
+      
+      <Dialog open={show} onClose={handleClose}> 
+          <DialogTitle>Add A Card</DialogTitle>
+        <DialogActions style={{padding:"15px"}}>
+        <FormGroup>
+               <TextField autoFocus margin="dense" id="title" type="title" label="Title" value={titleValue}  onChange={e => setTitleValue(e.target.value)}/>
+             </FormGroup>
+        </DialogActions>
+        <DialogActions>
+          <Button onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={addCard}>
+          <Button onClick={addCard}>
             Add Card
           </Button>
-        </Modal.Footer>
-      </Modal>
+        </DialogActions>
+      </Dialog>
+      
     </>
     );
 }
