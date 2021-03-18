@@ -49,7 +49,10 @@ function Column(props: Props) {
               console.log(card.description);
             }}
           >
-            <Typography style={{ margin: "0 10px" }}>{card.title}</Typography>
+            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+              {card.title}
+            </Typography>
+
             <Button
               color="secondary"
               size="small"
