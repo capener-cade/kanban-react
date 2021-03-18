@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Button,
-  ButtonGroup,
-  FormGroup,
-} from "@material-ui/core";
+import { Dialog, DialogActions, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from "@material-ui/core";
 
 function ModalForm(props: any) {
   const [show, setShow] = useState(false);
   const [titleValue, setTitleValue] = useState("");
+  const [descriptionValue, setDescriptionValue] = useState("");
 
   const handleClose = () => {
     setShow(false);
@@ -26,6 +17,7 @@ function ModalForm(props: any) {
       boardId: 1,
       column: props.column,
       title: titleValue,
+      description: descriptionValue,
     };
     await axios.post("http://localhost:3001/api/board/1/cards", newCard);
     await props.refreshBoard(1);
@@ -50,6 +42,15 @@ function ModalForm(props: any) {
               label="Title"
               value={titleValue}
               onChange={(e) => setTitleValue(e.target.value)}
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="description"
+              type="description"
+              label="Description"
+              value={descriptionValue}
+              onChange={(e) => setDescriptionValue(e.target.value)}
             />
           </FormGroup>
         </DialogActions>

@@ -5,6 +5,7 @@ import { Container, Card, CardHeader, Button, Typography } from "@material-ui/co
 type ColumnCard = {
   _id: number;
   title: string;
+  description: string;
   boardId: number;
 };
 
@@ -34,15 +35,18 @@ function Column(props: Props) {
 
   return (
     <Container>
-      {cards.map((card: { _id: string | number; title: React.ReactNode; boardId: number }) => {
+      {cards.map((card: { _id: string | number; title: React.ReactNode; boardId: number; description: string }) => {
         return (
           <Card
-            style={{ margin: "15px", padding: "10px 0" }}
+            style={{ margin: "15px", padding: "10px 0", cursor: "pointer" }}
             variant="outlined"
             key={card._id}
             draggable
             onDragStart={(e: any) => {
               onDragStart(e, card.title, card._id);
+            }}
+            onClick={() => {
+              console.log(card.description);
             }}
           >
             <Typography style={{ margin: "0 10px" }}>{card.title}</Typography>
