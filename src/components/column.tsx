@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import EditForm from "./editForm";
+
 import { Container, Card, CardHeader, Button, Typography } from "@material-ui/core";
 
 type ColumnCard = {
@@ -45,14 +47,13 @@ function Column(props: Props) {
             onDragStart={(e: any) => {
               onDragStart(e, card.title, card._id);
             }}
-            onClick={() => {
-              console.log(card.description);
-            }}
           >
             <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
               {card.title}
             </Typography>
-
+            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+              {card.description}
+            </Typography>
             <Button
               color="secondary"
               size="small"
@@ -62,6 +63,7 @@ function Column(props: Props) {
             >
               Delete
             </Button>
+            <EditForm id={card._id} boardId={card.boardId} column={props.column} refreshBoard={props.refreshBoard} />
           </Card>
         );
       })}
