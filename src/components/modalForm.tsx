@@ -8,6 +8,8 @@ function ModalForm(props: any) {
   const [descriptionValue, setDescriptionValue] = useState("");
 
   const handleClose = () => {
+    setTitleValue("");
+    setDescriptionValue("");
     setShow(false);
   };
   const handleShow = () => setShow(true);
