@@ -19,7 +19,7 @@ function ModalForm(props: any) {
       title: titleValue,
       description: descriptionValue,
     };
-    await axios.post("http://localhost:3001/api/board/1/cards", newCard);
+    await axios.post("http://localhost:3001/api/boards/1/cards", newCard);
     await props.refreshBoard(1);
     handleClose();
   };

@@ -22,17 +22,19 @@ function Column(props: Props) {
   const { column, cards } = props;
   // const taskList = ['Backlog', 'ToDo', 'Doing', 'Done']
   const erase = async (id: string | number | null | undefined, boardId: number): Promise<void> => {
-    await axios.delete(`http://localhost:3001/api/board/${boardId}/${id}`);
+    await axios.delete(`http://localhost:3001/api/boards/${boardId}/cards/${id}`);
     await props.refreshBoard(boardId);
   };
 
   const onDragStart = (
     e: { dataTransfer: { setData: (arg0: string, arg1: any) => void } },
     cardTitle: React.ReactNode,
-    cardId: string | number
+    cardId: string | number,
+    cardDescription: React.ReactNode
   ) => {
-    console.log("dragstart on div: ", cardTitle);
+    e.dataTransfer.setData("cardTitle", cardTitle);
     e.dataTransfer.setData("cardId", cardId);
+    e.dataTransfer.setData("cardDescription", cardDescription);
   };
 
   return (
@@ -45,7 +47,7 @@ function Column(props: Props) {
             key={card._id}
             draggable
             onDragStart={(e: any) => {
-              onDragStart(e, card.title, card._id);
+              onDragStart(e, card.title, card._id, card.description);
             }}
           >
             <Typography variant="subtitle1" style={{ margin: "0 10px" }}>

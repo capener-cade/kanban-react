@@ -25,7 +25,7 @@ function EditForm(props: Props) {
       description: descriptionValue,
       column: props.column,
     };
-    await axios.put(`http://localhost:3001/api/card/${props.boardId}/${props.id}`, updatedCard);
+    await axios.put(`http://localhost:3001/api/boards/${props.boardId}/cards/${props.id}`, updatedCard);
     await props.refreshBoard(props.boardId);
     handleClose();
   };
