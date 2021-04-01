@@ -17,7 +17,7 @@ function Board() {
   const [doneColumnData, setDoneColumnData] = useState([]);
 
   const getCards = async (boardId: number): Promise<any> => {
-    const response = await axios.get(`http://localhost:3001/api/board/${boardId}/cards`);
+    const response = await axios.get(`http://localhost:3001/api/boards/${boardId}/cards`);
     return response.data;
   };
 
@@ -52,7 +52,13 @@ function Board() {
 
   const onDrop = async (e: any, columnDropName: string) => {
     const cardId = e.dataTransfer.getData("cardId");
-    await axios.put(`http://localhost:3001/api/board/1/${cardId}`, { column: columnDropName });
+    const cardTitle = e.dataTransfer.getData("cardTitle");
+    const cardDescription = e.dataTransfer.getData("cardDescription");
+    await axios.put(`http://localhost:3001/api/boards/1/cards/${cardId}`, {
+      title: cardTitle,
+      column: columnDropName,
+      description: cardDescription,
+    });
     await refreshBoard(1);
   };
   return (

@@ -1,10 +1,13 @@
 import React from "react";
 import axios from "axios";
+import EditForm from "./editForm";
+
 import { Container, Card, CardHeader, Button, Typography } from "@material-ui/core";
 
 type ColumnCard = {
   _id: number;
   title: string;
+  description: string;
   boardId: number;
 };
 
@@ -19,33 +22,40 @@ function Column(props: Props) {
   const { column, cards } = props;
   // const taskList = ['Backlog', 'ToDo', 'Doing', 'Done']
   const erase = async (id: string | number | null | undefined, boardId: number): Promise<void> => {
-    await axios.delete(`http://localhost:3001/api/board/${boardId}/${id}`);
+    await axios.delete(`http://localhost:3001/api/boards/${boardId}/cards/${id}`);
     await props.refreshBoard(boardId);
   };
 
   const onDragStart = (
     e: { dataTransfer: { setData: (arg0: string, arg1: any) => void } },
     cardTitle: React.ReactNode,
-    cardId: string | number
+    cardId: string | number,
+    cardDescription: React.ReactNode
   ) => {
-    console.log("dragstart on div: ", cardTitle);
+    e.dataTransfer.setData("cardTitle", cardTitle);
     e.dataTransfer.setData("cardId", cardId);
+    e.dataTransfer.setData("cardDescription", cardDescription);
   };
 
   return (
     <Container>
-      {cards.map((card: { _id: string | number; title: React.ReactNode; boardId: number }) => {
+      {cards.map((card: { _id: string | number; title: React.ReactNode; boardId: number; description: string }) => {
         return (
           <Card
-            style={{ margin: "15px", padding: "10px 0" }}
+            style={{ margin: "15px", padding: "10px 0", cursor: "pointer" }}
             variant="outlined"
             key={card._id}
             draggable
             onDragStart={(e: any) => {
-              onDragStart(e, card.title, card._id);
+              onDragStart(e, card.title, card._id, card.description);
             }}
           >
-            <Typography style={{ margin: "0 10px" }}>{card.title}</Typography>
+            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+              {card.title}
+            </Typography>
+            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+              {card.description}
+            </Typography>
             <Button
               color="secondary"
               size="small"
@@ -55,6 +65,7 @@ function Column(props: Props) {
             >
               Delete
             </Button>
+            <EditForm id={card._id} boardId={card.boardId} column={props.column} refreshBoard={props.refreshBoard} />
           </Card>
         );
       })}

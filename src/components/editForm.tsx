@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactText } from "react";
 import axios from "axios";
 import { Dialog, DialogActions, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from "@material-ui/core";
 
-function ModalForm(props: any) {
+interface Props {
+  id: ReactText;
+  boardId: number;
+  column: string;
+  refreshBoard(boardId: number): Promise<void>;
+}
+
+function EditForm(props: Props) {
   const [show, setShow] = useState(false);
   const [titleValue, setTitleValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
@@ -14,26 +21,25 @@ function ModalForm(props: any) {
   };
   const handleShow = () => setShow(true);
 
-  const addCard = async () => {
-    const newCard = {
-      boardId: 1,
-      column: props.column,
+  const updateCard = async (): Promise<void> => {
+    const updatedCard = {
       title: titleValue,
       description: descriptionValue,
+      column: props.column,
     };
-    await axios.post("http://localhost:3001/api/boards/1/cards", newCard);
-    await props.refreshBoard(1);
+    await axios.put(`http://localhost:3001/api/boards/${props.boardId}/cards/${props.id}`, updatedCard);
+    await props.refreshBoard(props.boardId);
     handleClose();
   };
 
   return (
     <>
-      <ButtonGroup color="secondary" size="small" onClick={handleShow}>
-        <Button>Add A Card</Button>
+      <ButtonGroup color="primary" size="small" onClick={handleShow}>
+        <Button>Edit</Button>
       </ButtonGroup>
 
       <Dialog open={show} onClose={handleClose}>
-        <DialogTitle>Add A Card</DialogTitle>
+        <DialogTitle>Edit Card</DialogTitle>
         <DialogActions style={{ padding: "15px" }}>
           <FormGroup>
             <TextField
@@ -41,7 +47,7 @@ function ModalForm(props: any) {
               margin="dense"
               id="title"
               type="title"
-              label="Title"
+              label="New Title"
               value={titleValue}
               onChange={(e) => setTitleValue(e.target.value)}
             />
@@ -50,19 +56,19 @@ function ModalForm(props: any) {
               margin="dense"
               id="description"
               type="description"
-              label="Description"
+              label="New Description"
               value={descriptionValue}
               onChange={(e) => setDescriptionValue(e.target.value)}
             />
           </FormGroup>
         </DialogActions>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-          <Button onClick={addCard}>Add Card</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={updateCard}>Edit</Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
 
-export default ModalForm;
+export default EditForm;
