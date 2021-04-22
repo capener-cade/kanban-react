@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Dialog, DialogActions, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from "@material-ui/core";
 
@@ -6,6 +7,8 @@ function ModalForm(props: any) {
   const [show, setShow] = useState(false);
   const [titleValue, setTitleValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
+
+  const { id }: any = useParams();
 
   const handleClose = () => {
     setTitleValue("");
@@ -16,13 +19,14 @@ function ModalForm(props: any) {
 
   const addCard = async () => {
     const newCard = {
-      boardId: 1,
+      boardId: id,
       column: props.column,
       title: titleValue,
       description: descriptionValue,
     };
-    await axios.post("http://localhost:3001/api/boards/1/cards", newCard);
-    await props.refreshBoard(1);
+    await axios.post(`http://localhost:3001/api/boards/${id}/cards`, newCard);
+    console.log("this was hit");
+    await props.refreshBoard(id);
     handleClose();
   };
 

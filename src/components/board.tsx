@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Column from "./column";
 import axios from "axios";
 import ModalForm from "./modalForm";
@@ -15,6 +16,8 @@ function Board() {
   const [toDoColumnData, setToDoColumnData] = useState([]);
   const [doingColumnData, setDoingColumnData] = useState([]);
   const [doneColumnData, setDoneColumnData] = useState([]);
+
+  const { id }: any = useParams();
 
   const getCards = async (boardId: number): Promise<any> => {
     const response = await axios.get(`http://localhost:3001/api/boards/${boardId}/cards`);
@@ -35,7 +38,7 @@ function Board() {
 
   useEffect(() => {
     const fetchData = async () => {
-      await refreshBoard(1);
+      await refreshBoard(id);
     };
     fetchData();
   }, []);
@@ -54,12 +57,12 @@ function Board() {
     const cardId = e.dataTransfer.getData("cardId");
     const cardTitle = e.dataTransfer.getData("cardTitle");
     const cardDescription = e.dataTransfer.getData("cardDescription");
-    await axios.put(`http://localhost:3001/api/boards/1/cards/${cardId}`, {
+    await axios.put(`http://localhost:3001/api/boards/${id}/cards/${cardId}`, {
       title: cardTitle,
       column: columnDropName,
       description: cardDescription,
     });
-    await refreshBoard(1);
+    await refreshBoard(id);
   };
   return (
     <Container>
@@ -87,6 +90,7 @@ function Board() {
           </Grid>
         </Grid>
       </Paper>
+      <h3>Board Id: {id}</h3>
     </Container>
   );
 }
