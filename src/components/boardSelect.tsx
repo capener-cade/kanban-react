@@ -2,6 +2,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
+import AddBoardModal from "./addBoardModal";
 
 const theme = createMuiTheme({
   palette: {
@@ -25,6 +26,7 @@ function BoardSelect(props?: any) {
           );
         })}
       </ThemeProvider>
+      <AddBoardModal refreshBoardList={props.refreshBoardList} />
     </div>
   );
 }

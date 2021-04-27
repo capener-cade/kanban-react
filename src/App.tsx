@@ -4,7 +4,6 @@ import "./App.css";
 import axios from "axios";
 import BoardSelect from "./components/boardSelect";
 import SingleBoardView from "./components/SingleBoardView";
-import Dashboard from "./components/Dashboard";
 import { Button } from "@material-ui/core";
 
 function App() {
@@ -37,13 +36,10 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <BoardSelect boards={boardList} />
+            <BoardSelect boards={boardList} refreshBoardList={refreshBoardList} />
           </Route>
           <Route path="/boards/:id">
             <SingleBoardView />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
           </Route>
         </Switch>
       </div>
