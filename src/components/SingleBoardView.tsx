@@ -9,7 +9,7 @@ const theme = createMuiTheme({
   },
 });
 
-function SingleBoardView() {
+const SingleBoardView: React.FC = () => {
   const { id }: any = useParams();
   return (
     <div>
@@ -19,5 +19,5 @@ function SingleBoardView() {
       </ThemeProvider>
     </div>
   );
-}
+};
 export default SingleBoardView;
