@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import EditForm from "./editForm";
 
-import { Container, Card, CardHeader, Button, Typography } from "@material-ui/core";
+import { Container, Card, Button, Typography } from "@material-ui/core";
 
 type ColumnCard = {
   _id: number;

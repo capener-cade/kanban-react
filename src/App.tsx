@@ -1,29 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import Board from "./components/board";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-  },
-});
+import axios from "axios";
+import BoardSelect from "./components/boardSelect";
+import SingleBoardView from "./components/SingleBoardView";
+import Dashboard from "./components/Dashboard";
+import { Button } from "@material-ui/core";
 
 function App() {
+  const [boardList, setBoardList] = useState([]);
+
+  const getBoards = async (): Promise<any> => {
+    const response = await axios.get(`http://localhost:3001/api/boards`);
+    return response.data;
+  };
+
+  const refreshBoardList = async (): Promise<void> => {
+    const boards = await getBoards();
+    setBoardList(boards);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await refreshBoardList();
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <div style={{ margin: "100px" }}>
-          <AppBar style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-            <Typography style={{ paddingLeft: "50px", height: "100%", margin: "20px 0" }} variant="h5">
-              Trello Clone
-            </Typography>
-          </AppBar>
-        </div>
-        <Board />
-      </ThemeProvider>
-    </div>
+    <Router>
+      <div>
+        <Button>
+          <Link to="/">Select A Board</Link>
+        </Button>
+        <hr />
+
+        <Switch>
+          <Route exact path="/">
+            <BoardSelect boards={boardList} />
+          </Route>
+          <Route path="/boards/:id">
+            <SingleBoardView />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
