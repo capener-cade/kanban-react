@@ -4,9 +4,21 @@ import "./App.css";
 import axios from "axios";
 import BoardSelect from "./components/boardSelect";
 import SingleBoardView from "./components/SingleBoardView";
-import { Button } from "@material-ui/core";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Button, Box, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+    },
+  })
+);
 
 function App() {
+  const classes = useStyles();
   const [boardList, setBoardList] = useState([]);
 
   const getBoards = async (): Promise<any> => {
@@ -28,11 +40,20 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <Button>
-          <Link to="/">Select A Board</Link>
-        </Button>
-        <hr />
+      <div className={classes.root}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          style={{ height: "100%", width: "100%", padding: "10px 30px", color: "white", backgroundColor: "#6E7E85" }}
+        >
+          <Typography>Trello Clone</Typography>
+          <Button variant="text" color="primary">
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+              Select A Board
+            </Link>
+          </Button>
+        </Box>
 
         <Switch>
           <Route exact path="/">

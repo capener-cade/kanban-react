@@ -1,7 +1,29 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Dialog, DialogActions, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from "@material-ui/core";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  TextField,
+  Button,
+  ButtonGroup,
+  FormGroup,
+  Theme,
+  withStyles,
+} from "@material-ui/core";
+
+const ColorButton = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.getContrastText("#B7CECE"),
+    borderColor: "#E2E2E2",
+    backgroundColor: "#B7CECE",
+    "&:hover": {
+      borderColor: "#E2E2E2",
+      backgroundColor: "#B7CECE",
+    },
+  },
+}))(Button);
 
 function ModalForm(props: any) {
   const [show, setShow] = useState(false);
@@ -33,7 +55,7 @@ function ModalForm(props: any) {
   return (
     <>
       <ButtonGroup color="secondary" size="small" onClick={handleShow}>
-        <Button>Add A Card</Button>
+        <ColorButton>Add A Card</ColorButton>
       </ButtonGroup>
 
       <Dialog open={show} onClose={handleClose}>
