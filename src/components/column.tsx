@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import EditForm from "./editForm";
 
-import { Container, Card, Button, Typography } from "@material-ui/core";
+import { Box, Card, Button, Typography } from "@material-ui/core";
 
 type ColumnCard = {
   _id: number;
@@ -38,38 +38,41 @@ function Column(props: Props) {
   };
 
   return (
-    <Container>
+    <Box display="flex" flexDirection="column" style={{ padding: "10px 10px 10px 0px" }}>
       {cards.map((card: { _id: string | number; title: React.ReactNode; boardId: number; description: string }) => {
         return (
           <Card
-            style={{ margin: "15px", padding: "10px 0", cursor: "pointer" }}
             variant="outlined"
             key={card._id}
             draggable
             onDragStart={(e: any) => {
               onDragStart(e, card.title, card._id, card.description);
             }}
+            style={{ padding: "0 0 10px", margin: "5px 0" }}
           >
-            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+            <Typography variant="h5" style={{ margin: "10px 10px" }}>
               {card.title}
             </Typography>
-            <Typography variant="subtitle1" style={{ margin: "0 10px" }}>
+            <Typography variant="body1" style={{ margin: "10px 10px" }}>
               {card.description}
             </Typography>
-            <Button
-              color="secondary"
-              size="small"
-              onClick={(event: React.MouseEvent<HTMLElement>) => {
-                erase(card._id, card.boardId);
-              }}
-            >
-              Delete
-            </Button>
-            <EditForm id={card._id} boardId={card.boardId} column={props.column} refreshBoard={props.refreshBoard} />
+            <Box display="flex" flexDirection="row" justifyContent="space-around">
+              <Button
+                color="secondary"
+                size="small"
+                onClick={(event: React.MouseEvent<HTMLElement>) => {
+                  erase(card._id, card.boardId);
+                }}
+              >
+                Delete
+              </Button>
+
+              <EditForm id={card._id} boardId={card.boardId} column={props.column} refreshBoard={props.refreshBoard} />
+            </Box>
           </Card>
         );
       })}
-    </Container>
+    </Box>
   );
 }
 

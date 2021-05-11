@@ -1,6 +1,26 @@
 import React, { useState, ReactText } from "react";
 import axios from "axios";
-import { Dialog, DialogActions, DialogTitle, TextField, Button, ButtonGroup, FormGroup } from "@material-ui/core";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  TextField,
+  Button,
+  ButtonGroup,
+  FormGroup,
+  withStyles,
+  Theme,
+} from "@material-ui/core";
+
+const ColorButton = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.getContrastText("#6E7E85"),
+    backgroundColor: "#6E7E85",
+    "&:hover": {
+      backgroundColor: "#B7CECE",
+    },
+  },
+}))(Button);
 
 function AddBoardModal(props: any) {
   const [show, setShow] = useState(false);
@@ -26,7 +46,7 @@ function AddBoardModal(props: any) {
   return (
     <>
       <ButtonGroup color="primary" size="small" onClick={handleShow}>
-        <Button>Add Board</Button>
+        <ColorButton variant="outlined">Add Board</ColorButton>
       </ButtonGroup>
 
       <Dialog open={show} onClose={handleClose}>

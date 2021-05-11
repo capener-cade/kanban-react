@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Column from "./column";
 import axios from "axios";
 import ModalForm from "./modalForm";
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Container, Grid, Paper, Box } from "@material-ui/core";
 
 type ColumnCard = {
   id: number;
@@ -65,9 +65,9 @@ function Board() {
     await refreshBoard(id);
   };
   return (
-    <Container>
+    <Container style={{ width: "80%" }}>
       <Paper>
-        <Grid container spacing={3}>
+        <Box display="flex" flexDirection="row" style={{ padding: "20px" }}>
           <Grid item xs={3} onDragOver={(e: any) => onDragOver(e)} onDrop={(e: any) => onDrop(e, backlog)}>
             <h2>Backlog</h2>
             <Column column={backlog} cards={backlogColumnData} refreshBoard={refreshBoard} />
@@ -88,7 +88,7 @@ function Board() {
             <Column column={done} cards={doneColumnData} refreshBoard={refreshBoard} />
             <ModalForm column={done} refreshBoard={refreshBoard} />
           </Grid>
-        </Grid>
+        </Box>
       </Paper>
       <h3>Board Id: {id}</h3>
     </Container>
