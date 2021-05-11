@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Board from "./board";
 
